@@ -1,0 +1,2362 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Velvet & Vanilla — Artisanal Bakes · Nairobi</title>
+    <meta
+      name="description"
+      content="Premium handcrafted cakes for every moment. Nairobi delivery. Velvet & Vanilla Artisanal Bakes."
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ============================================================
+       STYLES
+  ============================================================ -->
+    <style>
+      /* ── CSS RESET & VARIABLES ─────────────────────────────────── */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --cream: #f5f0e8;
+        --cream-dark: #ede7d8;
+        --cocoa: #3e2723;
+        --cocoa-mid: #5d3a1a;
+        --gold: #c9a84c;
+        --gold-light: #e8c96a;
+        --gold-pale: #f5ecc8;
+        --white: #fefefe;
+        --gray: #7a6f68;
+        --gray-light: #c5bfb8;
+
+        --ff-display: "Playfair Display", Georgia, serif;
+        --ff-sub: "Cormorant Garamond", Georgia, serif;
+        --ff-body: "DM Sans", system-ui, sans-serif;
+
+        --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        --shadow-sm: 0 2px 12px rgba(62, 39, 35, 0.08);
+        --shadow-md: 0 8px 32px rgba(62, 39, 35, 0.14);
+        --shadow-lg: 0 20px 60px rgba(62, 39, 35, 0.18);
+
+        --nav-h: 76px;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+      }
+
+      /* Offset anchor targets so sticky header never covers section headings */
+      #hero,
+      #cakes,
+      #about,
+      #testimonials,
+      #contact {
+        scroll-margin-top: var(--nav-h);
+      }
+
+      body {
+        background: var(--cream);
+        color: var(--cocoa);
+        font-family: var(--ff-body);
+        font-weight: 300;
+        line-height: 1.7;
+        overflow-x: hidden;
+      }
+
+      /* grain texture overlay */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.5;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        cursor: pointer;
+        font-family: var(--ff-body);
+        border: none;
+        background: none;
+      }
+      ul {
+        list-style: none;
+      }
+
+      /* ── TYPOGRAPHY HELPERS ────────────────────────────────────── */
+      .display {
+        font-family: var(--ff-display);
+        font-style: italic;
+        line-height: 1.15;
+        letter-spacing: -0.01em;
+      }
+      .label {
+        font-family: var(--ff-body);
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      /* ── DIVIDER ───────────────────────────────────────────────── */
+      .ornament {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: var(--gold);
+        margin: 0 auto 2.5rem;
+        width: fit-content;
+      }
+      .ornament::before,
+      .ornament::after {
+        content: "";
+        display: block;
+        width: 48px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--gold));
+      }
+      .ornament::after {
+        background: linear-gradient(90deg, var(--gold), transparent);
+      }
+
+      /* ══════════════════════════════════════════════════════════════
+       HEADER / NAV
+    ══════════════════════════════════════════════════════════════ */
+      #site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        height: var(--nav-h);
+        display: flex;
+        align-items: center;
+        padding: 0 5vw;
+        background: rgba(245, 240, 232, 0.82);
+        backdrop-filter: blur(14px) saturate(1.4);
+        -webkit-backdrop-filter: blur(14px) saturate(1.4);
+        border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+        transition:
+          background var(--transition),
+          box-shadow var(--transition);
+      }
+      #site-header.scrolled {
+        background: rgba(245, 240, 232, 0.97);
+        box-shadow: 0 2px 24px rgba(62, 39, 35, 0.1);
+      }
+
+      .nav-inner {
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+      }
+
+      /* Logo */
+      .nav-logo {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.1;
+        flex-shrink: 0;
+      }
+      .nav-logo .brand {
+        font-family: var(--ff-display);
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: var(--cocoa);
+        letter-spacing: 0.01em;
+      }
+      .nav-logo .tagline {
+        font-size: 0.62rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-weight: 400;
+      }
+
+      /* Nav links */
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 2.4rem;
+      }
+      .nav-links a {
+        font-size: 0.8rem;
+        font-weight: 400;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--cocoa);
+        position: relative;
+        padding-bottom: 3px;
+        transition: color var(--transition);
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--gold);
+        transition: width var(--transition);
+      }
+      .nav-links a:hover {
+        color: var(--gold);
+      }
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+      .nav-links a.active {
+        color: var(--gold);
+      }
+      .nav-links a.active::after {
+        width: 100%;
+      }
+
+      /* Social icons */
+      .nav-social {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        flex-shrink: 0;
+      }
+      .nav-social a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: 1px solid rgba(201, 168, 76, 0.35);
+        color: var(--cocoa-mid);
+        transition:
+          background var(--transition),
+          color var(--transition),
+          border-color var(--transition);
+      }
+      .nav-social a:hover {
+        background: var(--gold);
+        color: var(--white);
+        border-color: var(--gold);
+      }
+      .nav-social svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      /* Hamburger */
+      .nav-hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        width: 26px;
+        padding: 4px 0;
+      }
+      .nav-hamburger span {
+        display: block;
+        height: 1.5px;
+        background: var(--cocoa);
+        transition:
+          transform var(--transition),
+          opacity var(--transition);
+      }
+      .nav-hamburger.open span:nth-child(1) {
+        transform: translateY(6.5px) rotate(45deg);
+      }
+      .nav-hamburger.open span:nth-child(2) {
+        opacity: 0;
+      }
+      .nav-hamburger.open span:nth-child(3) {
+        transform: translateY(-6.5px) rotate(-45deg);
+      }
+
+      /* Mobile nav drawer */
+      .nav-drawer {
+        display: none;
+        position: fixed;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        background: var(--cream);
+        border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+        padding: 1.5rem 5vw 2rem;
+        box-shadow: var(--shadow-md);
+        z-index: 99;
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+      .nav-drawer.open {
+        display: flex;
+      }
+      .nav-drawer a {
+        font-size: 1.1rem;
+        font-family: var(--ff-display);
+        font-style: italic;
+        color: var(--cocoa);
+        border-bottom: 1px solid var(--cream-dark);
+        padding-bottom: 0.8rem;
+      }
+      .nav-drawer .drawer-social {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 0.5rem;
+      }
+
+      @media (max-width: 840px) {
+        .nav-links,
+        .nav-social {
+          display: none;
+        }
+        .nav-hamburger {
+          display: flex;
+        }
+      }
+
+      /* ══════════════════════════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════════════════════════ */
+      #hero {
+        position: relative;
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding-top: var(--nav-h);
+      }
+
+      /* ── Hero Carousel ─────────────────────────────────────────── */
+      .hero-carousel {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+
+      .hero-slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: none;
+      }
+      .hero-slide.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .hero-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 30%;
+        filter: brightness(0.52) saturate(0.82);
+        /* Ken Burns zoom — each slide animates independently */
+        animation: none;
+        transform-origin: center center;
+      }
+      .hero-slide.active img {
+        animation: kenburns 7s ease-out forwards;
+      }
+
+      /* Alternate pan direction per slide */
+      .hero-slide:nth-child(odd).active img {
+        animation-name: kenburns-left;
+      }
+      .hero-slide:nth-child(even).active img {
+        animation-name: kenburns-right;
+      }
+
+      @keyframes kenburns-left {
+        from {
+          transform: scale(1.08) translateX(2%);
+        }
+        to {
+          transform: scale(1) translateX(0%);
+        }
+      }
+      @keyframes kenburns-right {
+        from {
+          transform: scale(1.08) translateX(-2%);
+        }
+        to {
+          transform: scale(1) translateX(0%);
+        }
+      }
+
+      /* Warm gradient overlay — sits above all slides */
+      .hero-carousel::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          160deg,
+          rgba(62, 39, 35, 0.58) 0%,
+          rgba(62, 39, 35, 0.22) 50%,
+          rgba(201, 168, 76, 0.15) 100%
+        );
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* ── Hero Carousel Dots ────────────────────────────────────── */
+      .hero-dots {
+        position: absolute;
+        bottom: 5.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 3;
+        display: flex;
+        gap: 0.55rem;
+        align-items: center;
+      }
+      .hero-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.4);
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        transition:
+          background var(--transition),
+          transform var(--transition),
+          width var(--transition);
+      }
+      .hero-dot.active {
+        background: var(--gold);
+        width: 22px;
+        border-radius: 3px;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: 2rem 5vw;
+        max-width: 820px;
+      }
+
+      .hero-eyebrow {
+        font-size: 0.72rem;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        margin-bottom: 1.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+      }
+      .hero-eyebrow::before,
+      .hero-eyebrow::after {
+        content: "";
+        display: block;
+        width: 32px;
+        height: 1px;
+        background: var(--gold-light);
+      }
+
+      .hero-headline {
+        font-family: var(--ff-display);
+        font-size: clamp(2.6rem, 7vw, 5.5rem);
+        font-weight: 700;
+        font-style: italic;
+        color: var(--white);
+        line-height: 1.1;
+        letter-spacing: -0.015em;
+        margin-bottom: 1.2rem;
+        text-shadow: 0 2px 30px rgba(62, 39, 35, 0.4);
+      }
+      .hero-headline em {
+        font-style: normal;
+        color: var(--gold-light);
+      }
+
+      .hero-sub {
+        font-family: var(--ff-sub);
+        font-size: clamp(1rem, 2.5vw, 1.3rem);
+        font-weight: 300;
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 2.8rem;
+        letter-spacing: 0.04em;
+      }
+
+      .hero-sub span {
+        display: inline-block;
+        margin: 0 0.5rem;
+        color: var(--gold-light);
+      }
+
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: var(--gold);
+        color: var(--cocoa);
+        font-family: var(--ff-body);
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 1rem 2.4rem;
+        border-radius: 2px;
+        transition:
+          background var(--transition),
+          transform var(--transition),
+          box-shadow var(--transition);
+        box-shadow: 0 4px 20px rgba(201, 168, 76, 0.4);
+      }
+      .btn-primary:hover {
+        background: var(--gold-light);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(201, 168, 76, 0.5);
+      }
+      .btn-primary svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* Scroll indicator */
+      .hero-scroll {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.62rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        animation: bounce 2.4s ease-in-out infinite;
+      }
+      .hero-scroll svg {
+        width: 18px;
+        height: 18px;
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          transform: translateX(-50%) translateY(8px);
+        }
+      }
+
+      /* ══════════════════════════════════════════════════════════════
+       SECTION WRAPPERS
+    ══════════════════════════════════════════════════════════════ */
+      .section {
+        padding: clamp(4rem, 8vw, 7rem) 5vw;
+      }
+      .section-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+      .section-header {
+        text-align: center;
+        margin-bottom: 3.5rem;
+      }
+      .section-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-weight: 500;
+        display: block;
+        margin-bottom: 0.8rem;
+      }
+      .section-title {
+        font-family: var(--ff-display);
+        font-style: italic;
+        font-size: clamp(1.9rem, 4vw, 3rem);
+        color: var(--cocoa);
+        line-height: 1.15;
+      }
+      .section-desc {
+        font-family: var(--ff-sub);
+        font-size: 1.05rem;
+        font-style: italic;
+        color: var(--gray);
+        margin-top: 0.8rem;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* ══════════════════════════════════════════════════════════════
+       CAKE BOUTIQUE / TABS
+    ══════════════════════════════════════════════════════════════ */
+      #cakes {
+        background: var(--white);
+        position: relative;
+      }
+      #cakes::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      }
+
+      /* Tabs */
+      .tabs-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        margin-bottom: 3rem;
+        border-bottom: 1px solid var(--cream-dark);
+        overflow-x: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .tabs-nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .tab-btn {
+        position: relative;
+        font-size: 0.78rem;
+        font-weight: 400;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gray);
+        padding: 0.9rem 1.8rem;
+        white-space: nowrap;
+        transition: color var(--transition);
+        flex-shrink: 0;
+      }
+      .tab-btn::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--gold);
+        transform: scaleX(0);
+        transition: transform var(--transition);
+      }
+      .tab-btn.active {
+        color: var(--cocoa);
+        font-weight: 500;
+      }
+      .tab-btn.active::after {
+        transform: scaleX(1);
+      }
+      .tab-btn:hover {
+        color: var(--cocoa);
+      }
+
+      /* Tab panels */
+      .tab-panel {
+        display: none;
+        animation: fadeIn 0.4s ease;
+      }
+      .tab-panel.active {
+        display: block;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* Product grid */
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+        gap: 2rem;
+      }
+
+      /* Product card */
+      .product-card {
+        background: var(--cream);
+        border-radius: 2px;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition:
+          transform var(--transition),
+          box-shadow var(--transition);
+        display: flex;
+        flex-direction: column;
+      }
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .card-img-wrap {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 3/3.5;
+      }
+      .card-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .product-card:hover .card-img-wrap img {
+        transform: scale(1.06);
+      }
+
+      .card-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: var(--gold);
+        color: var(--cocoa);
+        font-size: 0.6rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-weight: 500;
+        padding: 0.3rem 0.65rem;
+        border-radius: 1px;
+      }
+
+      .card-body {
+        padding: 1.4rem 1.4rem 1.6rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 0.6rem;
+      }
+
+      .card-name {
+        font-family: var(--ff-display);
+        font-size: 1.15rem;
+        font-weight: 600;
+        font-style: italic;
+        color: var(--cocoa);
+        line-height: 1.25;
+      }
+      .card-desc {
+        font-family: var(--ff-sub);
+        font-size: 0.88rem;
+        font-style: italic;
+        color: var(--gray);
+        line-height: 1.6;
+        flex: 1;
+      }
+
+      .card-controls {
+        margin-top: 0.8rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .card-size-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+      }
+
+      .card-size-row label {
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gray);
+        flex-shrink: 0;
+      }
+
+      .size-select {
+        flex: 1;
+        font-family: var(--ff-body);
+        font-size: 0.8rem;
+        font-weight: 400;
+        color: var(--cocoa);
+        background: var(--white);
+        border: 1px solid var(--gray-light);
+        border-radius: 1px;
+        padding: 0.45rem 0.7rem;
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237a6f68' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.7rem center;
+        padding-right: 2rem;
+        cursor: pointer;
+        transition: border-color var(--transition);
+      }
+      .size-select:focus {
+        outline: 2px solid var(--gold);
+        outline-offset: 1px;
+        border-color: var(--gold);
+      }
+
+      .card-price {
+        font-family: var(--ff-display);
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--cocoa);
+        letter-spacing: -0.01em;
+      }
+      .card-price span {
+        font-size: 0.7rem;
+        font-weight: 400;
+        color: var(--gray);
+      }
+
+      .btn-whatsapp {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+        background: var(--cocoa);
+        color: var(--cream);
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 0.85rem 1.2rem;
+        border-radius: 1px;
+        transition:
+          background var(--transition),
+          transform var(--transition);
+      }
+      .btn-whatsapp:hover {
+        background: var(--cocoa-mid);
+        transform: translateY(-1px);
+      }
+      .btn-whatsapp svg {
+        width: 15px;
+        height: 15px;
+        flex-shrink: 0;
+      }
+
+      /* ══════════════════════════════════════════════════════════════
+       ABOUT STRIP
+    ══════════════════════════════════════════════════════════════ */
+      #about {
+        background: var(--cocoa);
+        color: var(--cream);
+        overflow: hidden;
+      }
+      .about-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+      @media (max-width: 760px) {
+        .about-inner {
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+        }
+      }
+
+      .about-img-wrap {
+        position: relative;
+      }
+      .about-img-wrap img {
+        width: 100%;
+        aspect-ratio: 4/5;
+        object-fit: cover;
+        border-radius: 1px;
+      }
+      .about-img-wrap::before {
+        content: "";
+        position: absolute;
+        top: -16px;
+        left: -16px;
+        right: 16px;
+        bottom: 16px;
+        border: 1px solid rgba(201, 168, 76, 0.35);
+        border-radius: 1px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .about-text {
+        padding: 1rem 0;
+      }
+      .about-text .section-label {
+        color: var(--gold);
+      }
+      .about-text .section-title {
+        color: var(--cream);
+      }
+      .about-text p {
+        font-family: var(--ff-sub);
+        font-size: 1.02rem;
+        font-style: italic;
+        color: rgba(245, 240, 232, 0.75);
+        margin-top: 1.2rem;
+        line-height: 1.75;
+      }
+      .about-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-top: 2.5rem;
+        padding-top: 2.5rem;
+        border-top: 1px solid rgba(201, 168, 76, 0.2);
+      }
+      .stat-num {
+        font-family: var(--ff-display);
+        font-size: 2rem;
+        font-weight: 700;
+        font-style: italic;
+        color: var(--gold);
+        display: block;
+      }
+      .stat-label {
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(245, 240, 232, 0.55);
+        margin-top: 0.2rem;
+      }
+
+      /* ══════════════════════════════════════════════════════════════
+       TESTIMONIALS
+    ══════════════════════════════════════════════════════════════ */
+      #testimonials {
+        background: var(--cream-dark);
+        position: relative;
+        overflow: hidden;
+      }
+      #testimonials::before {
+        content: "\201C";
+        position: absolute;
+        top: -1rem;
+        left: 4vw;
+        font-family: var(--ff-display);
+        font-size: 18rem;
+        color: rgba(201, 168, 76, 0.07);
+        line-height: 1;
+        pointer-events: none;
+        user-select: none;
+      }
+
+      .carousel-wrap {
+        position: relative;
+        overflow: hidden;
+      }
+      .carousel-track {
+        display: flex;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .testimonial-slide {
+        min-width: 100%;
+        padding: 0 2rem;
+      }
+
+      .testimonial-card {
+        max-width: 680px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .testimonial-stars {
+        display: flex;
+        justify-content: center;
+        gap: 4px;
+        margin-bottom: 1.5rem;
+      }
+      .testimonial-stars svg {
+        width: 18px;
+        height: 18px;
+        fill: var(--gold);
+      }
+
+      .testimonial-quote {
+        font-family: var(--ff-display);
+        font-size: clamp(1.1rem, 2.8vw, 1.5rem);
+        font-style: italic;
+        color: var(--cocoa);
+        line-height: 1.6;
+        margin-bottom: 2rem;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .testimonial-author img {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--gold);
+      }
+      .author-info {
+        text-align: left;
+      }
+      .author-name {
+        font-family: var(--ff-display);
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--cocoa);
+      }
+      .author-loc {
+        font-size: 0.72rem;
+        color: var(--gray);
+        letter-spacing: 0.08em;
+      }
+
+      /* Carousel controls */
+      .carousel-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2.8rem;
+      }
+      .carousel-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid var(--gray-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--cocoa-mid);
+        transition:
+          background var(--transition),
+          border-color var(--transition),
+          color var(--transition);
+      }
+      .carousel-btn:hover {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: var(--white);
+      }
+      .carousel-btn svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      .carousel-dots {
+        display: flex;
+        gap: 0.5rem;
+      }
+      .carousel-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--gray-light);
+        transition:
+          background var(--transition),
+          transform var(--transition);
+        cursor: pointer;
+      }
+      .carousel-dot.active {
+        background: var(--gold);
+        transform: scale(1.4);
+      }
+
+      /* ══════════════════════════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════════════════════════ */
+      #site-footer {
+        background: var(--cocoa);
+        color: var(--cream);
+        padding: 4rem 5vw 2rem;
+      }
+      .footer-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+      .footer-top {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr;
+        gap: 3rem;
+        padding-bottom: 3rem;
+        border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+      }
+      @media (max-width: 700px) {
+        .footer-top {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+      }
+
+      .footer-brand .brand {
+        font-family: var(--ff-display);
+        font-size: 1.5rem;
+        font-style: italic;
+        color: var(--cream);
+        display: block;
+        margin-bottom: 0.4rem;
+      }
+      .footer-brand p {
+        font-family: var(--ff-sub);
+        font-size: 0.9rem;
+        font-style: italic;
+        color: rgba(245, 240, 232, 0.6);
+        line-height: 1.7;
+        max-width: 300px;
+        margin-top: 0.8rem;
+      }
+      .footer-social {
+        display: flex;
+        gap: 0.7rem;
+        margin-top: 1.5rem;
+      }
+      .footer-social a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 1px solid rgba(201, 168, 76, 0.3);
+        color: rgba(245, 240, 232, 0.7);
+        transition:
+          background var(--transition),
+          color var(--transition),
+          border-color var(--transition);
+      }
+      .footer-social a:hover {
+        background: var(--gold);
+        color: var(--cocoa);
+        border-color: var(--gold);
+      }
+      .footer-social svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      .footer-col h4 {
+        font-family: var(--ff-body);
+        font-size: 0.68rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1.2rem;
+      }
+      .footer-col ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+      .footer-col ul a {
+        font-size: 0.88rem;
+        color: rgba(245, 240, 232, 0.6);
+        transition: color var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .footer-col ul a:hover {
+        color: var(--gold-light);
+      }
+      .footer-col ul a svg {
+        width: 12px;
+        height: 12px;
+        color: var(--gold);
+        flex-shrink: 0;
+      }
+
+      .footer-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding-top: 2rem;
+      }
+      .footer-copy {
+        font-size: 0.75rem;
+        color: rgba(245, 240, 232, 0.35);
+        letter-spacing: 0.04em;
+      }
+      .footer-legal {
+        display: flex;
+        gap: 1.5rem;
+      }
+      .footer-legal a {
+        font-size: 0.72rem;
+        color: rgba(245, 240, 232, 0.35);
+        transition: color var(--transition);
+      }
+      .footer-legal a:hover {
+        color: var(--gold);
+      }
+
+      /* ── FOCUS STYLES FOR A11Y ─────────────────────────────────── */
+      :focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 3px;
+      }
+
+      /* ── LAZY LOAD FADE ────────────────────────────────────────── */
+      img[loading="lazy"] {
+        /* opacity: 0; */
+        transition: opacity 0.5s ease;
+      }
+      img[loading="lazy"].loaded {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ============================================================
+       HEADER
+  ============================================================ -->
+    <header id="site-header" role="banner">
+      <div class="nav-inner">
+        <!-- Logo -->
+        <a href="#hero" class="nav-logo" aria-label="Velvet & Vanilla home">
+          <span class="brand">Velvet &amp; Vanilla</span>
+          <span class="tagline">Artisanal Bakes &nbsp;·&nbsp; Nairobi</span>
+        </a>
+
+        <!-- Desktop nav links -->
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="#hero">Home</a>
+          <a href="#cakes">Cakes</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <!-- Desktop social icons -->
+        <div class="nav-social" aria-label="Social media links">
+          <!-- Instagram -->
+          <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none" />
+            </svg>
+          </a>
+          <!-- TikTok -->
+          <a href="#" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.83a8.21 8.21 0 0 0 4.78 1.52V7.89a4.85 4.85 0 0 1-1.01-.2z"
+              />
+            </svg>
+          </a>
+          <!-- Facebook -->
+          <a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+            </svg>
+          </a>
+          <!-- X / Twitter -->
+          <a href="#" aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+              />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Hamburger (mobile) -->
+        <button
+          class="nav-hamburger"
+          id="nav-hamburger"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="nav-drawer"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile nav drawer -->
+    <nav class="nav-drawer" id="nav-drawer" aria-label="Mobile navigation" role="navigation">
+      <a href="#hero">Home</a>
+      <a href="#cakes">Cakes</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <div class="drawer-social nav-social" style="border: none; padding: 0; margin-top: 0.5rem">
+        <a href="#" aria-label="Instagram"
+          ><svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="2" y="2" width="20" height="20" rx="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none" /></svg
+        ></a>
+        <a href="#" aria-label="TikTok"
+          ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.83a8.21 8.21 0 0 0 4.78 1.52V7.89a4.85 4.85 0 0 1-1.01-.2z"
+            /></svg
+        ></a>
+        <a href="#" aria-label="Facebook"
+          ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg
+        ></a>
+        <a href="#" aria-label="X (Twitter)"
+          ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+            /></svg
+        ></a>
+      </div>
+    </nav>
+
+    <main>
+      <!-- ============================================================
+         HERO
+    ============================================================ -->
+      <section id="hero" aria-label="Hero">
+        <!-- Hero image carousel (no side buttons — dot nav only) -->
+        <div class="hero-carousel" aria-hidden="true" id="hero-carousel">
+          <div class="hero-slide active">
+            <img
+              src="https://images.unsplash.com/photo-1583338917451-face2751d8d5?w=1400&h=900&q=80&auto=format&fit=crop"
+              alt=""
+              width="1400"
+              height="900"
+            />
+          </div>
+          <div class="hero-slide">
+            <img
+              src="https://plus.unsplash.com/premium_photo-1680172800885-61c5f1fc188e?w=1400&h=900&q=80&auto=format&fit=crop"
+              alt=""
+              width="1400"
+              height="900"
+              loading="lazy"
+            />
+          </div>
+          <div class="hero-slide">
+            <img
+              src="https://images.unsplash.com/photo-1514056052883-d017fddd0426?w=1400&h=900&q=80&auto=format&fit=crop"
+              alt=""
+              width="1400"
+              height="900"
+              loading="lazy"
+            />
+          </div>
+          <div class="hero-slide">
+            <img
+              src="https://plus.unsplash.com/premium_photo-1713370409523-bf659b7ccba5?w=1400&h=900&q=80&auto=format&fit=crop"
+              alt=""
+              width="1400"
+              height="900"
+              loading="lazy"
+            />
+          </div>
+          <div class="hero-slide">
+            <img
+              src="https://images.unsplash.com/photo-1646941570314-16812d38b081?w=1400&h=900&q=80&auto=format&fit=crop"
+              alt=""
+              width="1400"
+              height="900"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <!-- Dot indicators -->
+        <div class="hero-dots" role="tablist" aria-label="Hero slideshow navigation" id="hero-dots"></div>
+
+        <div class="hero-content">
+          <p class="hero-eyebrow label">Nairobi's Artisanal Patisserie</p>
+          <h1 class="hero-headline display">
+            Handcrafted Cakes<br />
+            for <em>Every Moment</em>
+          </h1>
+          <p class="hero-sub">
+            Premium ingredients
+            <span>·</span>
+            Made with love
+            <span>·</span>
+            Nairobi delivery
+          </p>
+          <a href="#cakes" class="btn-primary" aria-label="Browse our cake collection">
+            Browse Cakes
+            <svg
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M3 8h10M9 4l4 4-4 4" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="hero-scroll" aria-hidden="true">
+          <span class="label" style="font-size: 0.58rem">Scroll</span>
+          <svg
+            viewBox="0 0 18 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="1" width="12" height="18" rx="6" />
+            <line x1="9" y1="6" x2="9" y2="10" />
+          </svg>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         CAKE BOUTIQUE — TABBED
+    ============================================================ -->
+      <section id="cakes" class="section" aria-labelledby="cakes-title">
+        <div class="section-inner">
+          <div class="section-header">
+            <span class="section-label label">The Boutique</span>
+            <h2 class="section-title display" id="cakes-title">Our Cake Collection</h2>
+            <p class="section-desc">
+              Each creation is baked to order with the finest ingredients sourced locally and internationally.
+            </p>
+          </div>
+
+          <!-- Tab Navigation -->
+          <div class="tabs-nav" role="tablist" aria-label="Cake categories">
+            <button
+              class="tab-btn active"
+              role="tab"
+              aria-selected="true"
+              aria-controls="tab-signature"
+              id="btn-signature"
+              data-tab="signature"
+            >
+              Signature Cakes
+            </button>
+            <button
+              class="tab-btn"
+              role="tab"
+              aria-selected="false"
+              aria-controls="tab-occasion"
+              id="btn-occasion"
+              data-tab="occasion"
+            >
+              Occasion Cakes
+            </button>
+            <button
+              class="tab-btn"
+              role="tab"
+              aria-selected="false"
+              aria-controls="tab-daily"
+              id="btn-daily"
+              data-tab="daily"
+            >
+              Daily Treats
+            </button>
+          </div>
+
+          <!-- ── TAB 1: Signature Cakes ─────────────────────────── -->
+          <div class="tab-panel active" id="tab-signature" role="tabpanel" aria-labelledby="btn-signature">
+            <div class="product-grid" id="grid-signature">
+              <!-- Cards injected by JS -->
+            </div>
+          </div>
+
+          <!-- ── TAB 2: Occasion Cakes ─────────────────────────── -->
+          <div class="tab-panel" id="tab-occasion" role="tabpanel" aria-labelledby="btn-occasion">
+            <div class="product-grid" id="grid-occasion"></div>
+          </div>
+
+          <!-- ── TAB 3: Daily Treats ───────────────────────────── -->
+          <div class="tab-panel" id="tab-daily" role="tabpanel" aria-labelledby="btn-daily">
+            <div class="product-grid" id="grid-daily"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         ABOUT
+    ============================================================ -->
+      <section id="about" class="section" aria-labelledby="about-title">
+        <div class="about-inner">
+          <div class="about-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1583338917451-face2751d8d5?w=600&h=750&q=80&auto=format&fit=crop"
+              alt="Our baker crafting a signature layered cake"
+              width="520"
+              height="650"
+              loading="lazy"
+            />
+          </div>
+          <div class="about-text">
+            <span class="section-label label">Our Story</span>
+            <h2 class="section-title display" id="about-title">Baked with Intention, Delivered with Joy</h2>
+            <p>
+              What began as a passion for perfecting the classic red velvet in a Kilimani kitchen has blossomed into
+              Nairobi's most-loved artisanal bakery. Every cake that leaves our kitchen carries a piece of our story.
+            </p>
+            <p>
+              We believe that premium ingredients and genuine craft make all the difference — from the Belgian
+              couverture chocolate we fold into our ganache, to the hand-harvested vanilla beans in every sponge.
+            </p>
+            <div class="about-stats">
+              <div>
+                <span class="stat-num">5+</span>
+                <p class="stat-label">Years Baking</p>
+              </div>
+              <div>
+                <span class="stat-num">2K+</span>
+                <p class="stat-label">Happy Clients</p>
+              </div>
+              <div>
+                <span class="stat-num">30+</span>
+                <p class="stat-label">Cake Styles</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         TESTIMONIALS
+    ============================================================ -->
+      <section id="testimonials" class="section" aria-labelledby="testimonials-title">
+        <div class="section-inner">
+          <div class="section-header">
+            <span class="section-label label">Kind Words</span>
+            <h2 class="section-title display" id="testimonials-title">What Our Clients Say</h2>
+          </div>
+
+          <div class="carousel-wrap" aria-live="polite" aria-atomic="true">
+            <div class="carousel-track" id="carousel-track"></div>
+          </div>
+
+          <div class="carousel-controls" aria-label="Testimonial navigation">
+            <button class="carousel-btn" id="carousel-prev" aria-label="Previous testimonial">
+              <svg
+                viewBox="0 0 14 14"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M9 2L4 7l5 5" />
+              </svg>
+            </button>
+            <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Testimonial slides"></div>
+            <button class="carousel-btn" id="carousel-next" aria-label="Next testimonial">
+              <svg
+                viewBox="0 0 14 14"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 2l5 5-5 5" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+    <div id="contact" style="scroll-margin-top: 76px"></div>
+    <footer id="site-footer" role="contentinfo">
+      <div class="footer-inner">
+        <div class="footer-top">
+          <!-- Brand col -->
+          <div class="footer-brand">
+            <span class="brand">Velvet &amp; Vanilla</span>
+            <span class="label" style="font-size: 0.6rem; color: var(--gold); letter-spacing: 0.2em"
+              >Artisanal Bakes · Nairobi</span
+            >
+            <p>
+              Premium handcrafted cakes for every celebration, occasion, and everyday indulgence. Baked fresh, delivered
+              with care.
+            </p>
+            <div class="footer-social" aria-label="Social media">
+              <a href="#" aria-label="Instagram"
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none" /></svg
+              ></a>
+              <a href="#" aria-label="TikTok"
+                ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.83a8.21 8.21 0 0 0 4.78 1.52V7.89a4.85 4.85 0 0 1-1.01-.2z"
+                  /></svg
+              ></a>
+              <a href="#" aria-label="Facebook"
+                ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg
+              ></a>
+              <a href="#" aria-label="X (Twitter)"
+                ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                  /></svg
+              ></a>
+            </div>
+          </div>
+
+          <!-- Quick links col -->
+          <div class="footer-col">
+            <h4>Navigate</h4>
+            <ul>
+              <li>
+                <a href="#hero"
+                  ><svg
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M2 6h8M6 2l4 4-4 4" /></svg
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a href="#cakes"
+                  ><svg
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M2 6h8M6 2l4 4-4 4" /></svg
+                  >Cake Boutique</a
+                >
+              </li>
+              <li>
+                <a href="#about"
+                  ><svg
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M2 6h8M6 2l4 4-4 4" /></svg
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a href="#testimonials"
+                  ><svg
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M2 6h8M6 2l4 4-4 4" /></svg
+                  >Reviews</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact col -->
+          <div class="footer-col">
+            <h4>Get in Touch</h4>
+            <ul>
+              <li>
+                <a href="/cdn-cgi/l/email-protection#bbd2d5ddd4fbcdded7cddecfcddad5d2d7d7da95d8d495d0de">
+                  <svg
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect x="1" y="3" width="10" height="7" rx="1" />
+                    <path d="M1 3l5 4 5-4" />
+                  </svg>
+                  <span class="__cf_email__" data-cfemail="8de4e3ebe2cdfbe8e1fbe8f9fbece3e4e1e1eca3eee2a3e6e8"
+                    >velvetvanilla@cake.co.ke</span
+                  >
+                </a>
+              </li>
+              <li>
+                <a href="https://wa.me/254700000000" target="_blank" rel="noopener noreferrer">
+                  <svg
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M6 1a5 5 0 1 0 4.33 7.5L11 11l-2.5-.67A5 5 0 0 0 6 1z" />
+                  </svg>
+                  WhatsApp Us
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <svg
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <circle cx="6" cy="5" r="2" />
+                    <path d="M10 10a4 4 0 0 0-8 0" />
+                  </svg>
+                  Kilimani, Nairobi, Kenya
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Footer bottom bar -->
+        <div class="footer-bottom">
+          <p class="footer-copy">&copy; 2026 Velvet &amp; Vanilla Artisanal Bakes. All rights reserved.</p>
+          <nav class="footer-legal" aria-label="Legal links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script>
+      "use strict";
+
+      /* ── DATA ──────────────────────────────────────────────────── */
+      const PRODUCTS = {
+        signature: [
+          {
+            name: "Salted Caramel Dream",
+            desc: "Luscious layers of caramel sponge, salted caramel Swiss meringue buttercream & a silky drip finish.",
+            badge: "Bestseller",
+            img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=700&h=800&q=80&auto=format&fit=crop",
+            imgAlt: "Salted Caramel Dream cake with golden drip",
+            prices: { "0.5 kg": 2800, "1 kg": 4500, "2 kg": 7800 },
+          },
+          {
+            name: "Classic Red Velvet",
+            desc: "Velvety crimson layers with our signature cream cheese frosting and a dusting of cocoa.",
+            badge: null,
+            img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=700&h=800&q=80&auto=format&fit=crop",
+            imgAlt: "Classic Red Velvet cake slice",
+            prices: { "0.5 kg": 2600, "1 kg": 4200, "2 kg": 7200 },
+          },
+          {
+            name: "Belgian Dark Chocolate",
+            desc: "Intensely rich Valrhona chocolate ganache layered between moist devil's food sponges.",
+            badge: "Chef's Choice",
+            img: "https://images.unsplash.com/photo-1605807646983-377bc5a76493?w=700&h=800&q=80&auto=format&fit=crop",
+            imgAlt: "Belgian dark chocolate cake with glossy ganache",
+            prices: { "0.5 kg": 3000, "1 kg": 4800, "2 kg": 8500 },
+          },
+          {
+            name: "Vanilla Bean Delight",
+            desc: "Delicate Tahitian vanilla sponge with whipped vanilla diplomat cream and fresh berry coulis.",
+            badge: null,
+            img: "https://plus.unsplash.com/premium_photo-1663839331564-2a43583cea49?w=700&h=800&q=80&auto=format&fit=crop",
+            imgAlt: "Elegant vanilla bean cake with berries",
+            prices: { "0.5 kg": 2500, "1 kg": 4000, "2 kg": 6800 },
+          },
+          {
+            name: "Lemon Elderflower",
+            desc: "Zesty lemon sponge kissed with elderflower syrup and frosted in lemon curd Swiss meringue.",
+            badge: "Seasonal",
+            img: "https://plus.unsplash.com/premium_photo-1716839714485-ed6739658c74?w=700&h=800&q=80&auto=format&fit=crop",
+            imgAlt: "Lemon elderflower cake with pale frosting",
+            prices: { "0.5 kg": 2700, "1 kg": 4300, "2 kg": 7500 },
+          },
+          {
+            name: "Strawberries & Cream",
+            desc: "Light chiffon layers, Chantilly cream and fresh Kenyan strawberries in every bite.",
+            badge: null,
+            img: "https://plus.unsplash.com/premium_photo-1715080610621-715ff25546ba?w=700&h=800&q=80&auto=format&fit=crop",
+            imgAlt: "Strawberries and cream layer cake",
+            prices: { "0.5 kg": 2800, "1 kg": 4500, "2 kg": 7800 },
+          },
+        ],
+        occasion: [
+          {
+            name: "Grand Wedding Tier",
+            desc: "A show-stopping three-tier creation hand-decorated with sugar florals and gold leaf for your big day.",
+            badge: "Custom",
+            img: "https://images.unsplash.com/photo-1571616050325-2b2c1f55324c?w=700&h=800&q=80&auto=format&fit=crop",
+            imgAlt: "Three-tiered wedding cake with floral decorations",
+            prices: { "0.5 kg": 5000, "1 kg": 9000, "2 kg": 16000 },
+          },
+          {
+            name: "Luxe Birthday Cake",
+            desc: "Personalised layered beauty with custom colour palette, hand-piped rosettes and a glam topper.",
+            badge: "Popular",
+            img: "https://images.unsplash.com/photo-1747576660175-15860fdd0e07?w=700&h=800&q=80&auto=format&fit=crop",
+            imgAlt: "Glamorous birthday cake with gold rosettes",
+            prices: { "0.5 kg": 3200, "1 kg": 5200, "2 kg": 9000 },
+          },
+          {
+            name: "Baby Shower Drip",
+            desc: "Pastel-hued sponge with confetti buttercream, a pastel drip and fondant baby accents.",
+            badge: null,
+            img: "https://images.unsplash.com/photo-1765317270469-0cfa69847419?w=700&h=800&q=80&auto=format&fit=crop",
+            imgAlt: "Pastel baby shower drip cake",
+            prices: { "0.5 kg": 3000, "1 kg": 4800, "2 kg": 8200 },
+          },
+          {
+            name: "Anniversary Rosette",
+            desc: "Deeply romantic piped rosette cake in dusty rose and ivory, ideal for anniversaries.",
+            badge: "New",
+            img: "https://images.unsplash.com/photo-1670388429858-881804cbc864?w=700&h=800&q=80&auto=format&fit=crop",
+            imgAlt: "Romantic rosette anniversary cake",
+            prices: { "0.5 kg": 3400, "1 kg": 5400, "2 kg": 9400 },
+          },
+          {
+            name: "Corporate Branding Cake",
+            desc: "Edible logo printing on premium fondant — perfect for product launches and corporate events.",
+            badge: "B2B",
+            img: "https://freshcakesavenue.com/wp-content/uploads/2022/10/corporate-cake.jpg?w=700&h=800&q=80&auto=format&fit=crop",
+            imgAlt: "Corporate branded fondant cake",
+            prices: { "0.5 kg": 4000, "1 kg": 6500, "2 kg": 11000 },
+          },
+          {
+            name: "Eid & Ramadan Special",
+            desc: "Rose water & pistachio layered cake adorned with crescent moon sugar work and gold accents.",
+            badge: "Limited",
+            img: "https://images.unsplash.com/photo-1634858216286-bf1aeea4841a?w=700&h=800&q=80&auto=format&fit=crop",
+            imgAlt: "Eid special rose water pistachio cake",
+            prices: { "0.5 kg": 3200, "1 kg": 5200, "2 kg": 9000 },
+          },
+        ],
+        daily: [
+          {
+            name: "Honey Almond Loaf",
+            desc: "A rustic Kenyan honey and toasted almond tea cake, sliced fresh daily for takeaway.",
+            badge: "Daily Bake",
+            img: "https://plus.unsplash.com/premium_photo-1715030178679-0bea08d9df36?w=700&h=800&q=80&auto=format&fit=crop",
+            imgAlt: "Rustic honey almond loaf cake",
+            prices: { "0.5 kg": 900, "1 kg": 1600, "2 kg": 2900 },
+          },
+          {
+            name: "Velvet Cupcake Box",
+            desc: "A box of 6 mini red velvet cupcakes crowned with clouds of cream cheese frosting.",
+            badge: "Per Box",
+            img: "https://images.unsplash.com/photo-1714386148315-2f0e3eebcd5a?w=700&h=800&q=80&auto=format&fit=crop",
+            imgAlt: "Box of red velvet cupcakes",
+            prices: { "0.5 kg": 1200, "1 kg": 2200, "2 kg": 4000 },
+          },
+          {
+            name: "Croissant & Pastry Set",
+            desc: "Fresh-baked butter croissants, pain au chocolat and almond twists — a continental morning treat.",
+            badge: "Morning Only",
+            img: "https://images.unsplash.com/photo-1642356053456-92114eaa2a3d?w=700&h=800&q=80&auto=format&fit=crop",
+            imgAlt: "Assorted butter croissants and pastries",
+            prices: { "0.5 kg": 950, "1 kg": 1800, "2 kg": 3300 },
+          },
+          {
+            name: "Chocolate Brownie Slab",
+            desc: "Fudgy Valrhona chocolate brownies with a crinkle-top crust — cut to order from our daily slab.",
+            badge: "Vegan Option",
+            img: "https://plus.unsplash.com/premium_photo-1769788824719-5602abec1565?w=700&h=800&q=80&auto=format&fit=crop",
+             imgAlt: "Fudgy chocolate brownie slab",
+            prices: { "0.5 kg": 800, "1 kg": 1500, "2 kg": 2800 },
+          },
+          {
+            name: "Coconut Macaroon Tower",
+            desc: "Toasted coconut macaroons dipped in dark couverture — perfect for gifting or afternoon tea.",
+            badge: null,
+            img: "https://nickygrant.com/wp-content/uploads/2023/01/macaron-tower-coconut-cake.jpg?w=700&h=800&q=80&auto=format&fit=crop",
+             imgAlt: "Coconut macaroon tower",
+            prices: { "0.5 kg": 1100, "1 kg": 2000, "2 kg": 3600 },
+          },
+          {
+            name: "Earl Grey Tea Cake",
+            desc: "A fragrant Earl Grey and orange zest pound cake glazed with bergamot icing.",
+            badge: "Afternoon Tea",
+            img: "https://static01.nyt.com/images/2022/03/23/autossell/200426_nytcooking_yossyarefi_thumb/200426_nytcooking_yossyarefi_thumb-jumbo.jpg?w=700&h=800&q=80&auto=format&fit=crop",
+             imgAlt: "Earl Grey orange pound cake",
+            prices: { "0.5 kg": 950, "1 kg": 1750, "2 kg": 3200 },
+          },
+        ],
+      };
+
+      const TESTIMONIALS = [
+        {
+          quote:
+            "The Belgian Chocolate cake for my daughter's birthday was absolutely divine. The layers were moist, the ganache was silk, and the presentation had everyone reaching for their phones before taking a bite.",
+          name: "Amina Wanjiku",
+          location: "Westlands, Nairobi",
+          avatar:
+            "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCI+PGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iNDAiIGZpbGw9IiM1RDNBMUEiLz48dGV4dCB4PSI0MCIgeT0iNDAiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmaWxsPSIjRjVFQ0M4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5BVzwvdGV4dD48L3N2Zz4=",
+        },
+        {
+          quote:
+            "Our wedding cake was everything we dreamed of and more. The team listened to every detail and delivered a three-tier masterpiece that tasted as incredible as it looked. Truly unforgettable.",
+          name: "Brian & Cynthia Odhiambo",
+          location: "Karen, Nairobi",
+          avatar:
+            "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCI+PGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iNDAiIGZpbGw9IiMzRTI3MjMiLz48dGV4dCB4PSI0MCIgeT0iNDAiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmaWxsPSIjQzlBODRDIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5CQzwvdGV4dD48L3N2Zz4=",
+        },
+        {
+          quote:
+            "I order from Velvet & Vanilla every Friday. The daily treats — especially the brownies and Earl Grey tea cake — are consistently perfect. The WhatsApp ordering is seamless and delivery is always on time.",
+          name: "Fatima Abdi",
+          location: "Kilimani, Nairobi",
+          avatar:
+            "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCI+PGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iNDAiIGZpbGw9IiNDOUE4NEMiLz48dGV4dCB4PSI0MCIgeT0iNDAiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmaWxsPSIjM0UyNzIzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5GQTwvdGV4dD48L3N2Zz4=",
+        },
+        {
+          quote:
+            "The Salted Caramel Dream is aptly named. I've tried many bakeries across Nairobi, and nothing comes close. The balance between sweet and salt is just perfect. My entire office agrees.",
+          name: "David Kamau",
+          location: "Upper Hill, Nairobi",
+          avatar:
+            "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCI+PGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iNDAiIGZpbGw9IiMyQzE4MTAiLz48dGV4dCB4PSI0MCIgeT0iNDAiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmaWxsPSIjRDRBRjM3IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5ESzwvdGV4dD48L3N2Zz4=",
+        },
+        {
+          quote:
+            "Ordered a custom birthday cake with 48 hours' notice and they delivered something absolutely stunning. Their communication was professional and the flavour was phenomenal. Will not bake with anyone else.",
+          name: "Grace Muthoni",
+          location: "Lavington, Nairobi",
+          avatar:
+            "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCI+PGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iNDAiIGZpbGw9IiM4QjFBMUEiLz48dGV4dCB4PSI0MCIgeT0iNDAiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmaWxsPSIjRjVFQ0M4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5HTTwvdGV4dD48L3N2Zz4=",
+        },
+      ];
+
+      /* ── UTILITY ───────────────────────────────────────────────── */
+      const $ = (sel, ctx = document) => ctx.querySelector(sel);
+      const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+      const fmt = (n) => n.toLocaleString("en-KE");
+
+      /* ── STICKY HEADER ─────────────────────────────────────────── */
+      function initStickyHeader() {
+        const header = $("#site-header");
+        const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 50);
+        window.addEventListener("scroll", onScroll, { passive: true });
+      }
+
+      /* ── MOBILE HAMBURGER ──────────────────────────────────────── */
+      function initHamburger() {
+        const btn = $("#nav-hamburger");
+        const drawer = $("#nav-drawer");
+        if (!btn || !drawer) return;
+
+        btn.addEventListener("click", () => {
+          const open = drawer.classList.toggle("open");
+          btn.classList.toggle("open", open);
+          btn.setAttribute("aria-expanded", String(open));
+          btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+        });
+
+        // Close on drawer link click
+        $$("a", drawer).forEach((a) =>
+          a.addEventListener("click", () => {
+            drawer.classList.remove("open");
+            btn.classList.remove("open");
+            btn.setAttribute("aria-expanded", "false");
+            btn.setAttribute("aria-label", "Open menu");
+          }),
+        );
+      }
+
+      /* ── WHATSAPP ORDER ────────────────────────────────────────── */
+      const WA_NUMBER = "254700000000"; // Replace with real number
+
+      function orderViaWhatsApp(card) {
+        const name = card.dataset.name;
+        const select = $("select.size-select", card);
+        const size = select.value;
+        const price = card.dataset.prices ? JSON.parse(card.dataset.prices)[size] : 0;
+
+        const message =
+          `Hi Velvet & Vanilla team! 🎂 I'd like to order:\n` +
+          `• ${name}\n` +
+          `• Size: ${size}\n` +
+          `• Price: KES ${fmt(price)}\n\n` +
+          `Can we discuss delivery to [my area]?`;
+
+        const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+        window.open(url, "_blank", "noopener,noreferrer");
+      }
+
+      /* ── BUILD PRODUCT CARD ────────────────────────────────────── */
+      function buildCard(product) {
+        const card = document.createElement("article");
+        card.className = "product-card";
+        card.dataset.name = product.name;
+        card.dataset.prices = JSON.stringify(product.prices);
+
+        const sizes = Object.keys(product.prices);
+        const defaultSize = sizes[1]; // '1 kg' default
+        const defaultPrice = product.prices[defaultSize];
+
+        const optionsHtml = sizes
+          .map((s) => `<option value="${s}"${s === defaultSize ? " selected" : ""}>${s}</option>`)
+          .join("");
+
+        card.innerHTML = `
+        <div class="card-img-wrap">
+          <img
+            src="${product.img}"
+            alt="${product.imgAlt}"
+            width="400" height="460"
+            loading="lazy"
+          />
+          ${product.badge ? `<span class="card-badge">${product.badge}</span>` : ""}
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">${product.name}</h3>
+          <p class="card-desc">${product.desc}</p>
+          <div class="card-controls">
+            <div class="card-size-row">
+              <label for="size-${product.name.replace(/\s+/g, "-").toLowerCase()}">Size</label>
+              <select
+                class="size-select"
+                id="size-${product.name.replace(/\s+/g, "-").toLowerCase()}"
+                aria-label="Select cake size for ${product.name}"
+              >${optionsHtml}</select>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+              <p class="card-price">
+                KES <span class="price-val">${fmt(defaultPrice)}</span>
+              </p>
+            </div>
+            <button class="btn-whatsapp" aria-label="Order ${product.name} via WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+              Order via WhatsApp
+            </button>
+          </div>
+        </div>
+      `;
+
+        // Dynamic price update
+        const select = $("select.size-select", card);
+        const priceEl = $(".price-val", card);
+        select.addEventListener("change", () => {
+          const prices = JSON.parse(card.dataset.prices);
+          priceEl.textContent = fmt(prices[select.value]);
+        });
+
+        // WhatsApp button
+        $(".btn-whatsapp", card).addEventListener("click", () => orderViaWhatsApp(card));
+
+        // Lazy load fade
+        const img = $("img", card);
+        if (img) {
+          img.addEventListener("load", () => img.classList.add("loaded"));
+          if (img.complete) img.classList.add("loaded");
+        }
+
+        return card;
+      }
+
+      /* ── INIT PRODUCT GRIDS ────────────────────────────────────── */
+      function initGrids() {
+        Object.entries(PRODUCTS).forEach(([key, items]) => {
+          const grid = $(`#grid-${key}`);
+          if (!grid) return;
+          const fragment = document.createDocumentFragment();
+          items.forEach((p) => fragment.appendChild(buildCard(p)));
+          grid.appendChild(fragment);
+        });
+      }
+
+      /* ── TABS ──────────────────────────────────────────────────── */
+      function initTabs() {
+        const btns = $$(".tab-btn");
+        const panels = $$(".tab-panel");
+
+        btns.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const target = btn.dataset.tab;
+
+            btns.forEach((b) => {
+              b.classList.toggle("active", b === btn);
+              b.setAttribute("aria-selected", String(b === btn));
+            });
+
+            panels.forEach((p) => {
+              const isTarget = p.id === `tab-${target}`;
+              p.classList.toggle("active", isTarget);
+            });
+          });
+        });
+      }
+
+      /* ── TESTIMONIAL CAROUSEL ──────────────────────────────────── */
+      function initCarousel() {
+        const track = $("#carousel-track");
+        const dotsEl = $("#carousel-dots");
+        if (!track || !dotsEl) return;
+
+        let current = 0;
+        let timer;
+
+        // Build slides
+        TESTIMONIALS.forEach((t, i) => {
+          const slide = document.createElement("div");
+          slide.className = "testimonial-slide";
+          slide.setAttribute("role", "tabpanel");
+          slide.setAttribute("aria-label", `Testimonial ${i + 1}`);
+          slide.innerHTML = `
+          <div class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 stars">
+              ${Array(5).fill('<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>').join("")}
+            </div>
+            <blockquote class="testimonial-quote">"${t.quote}"</blockquote>
+            <div class="testimonial-author">
+              <img src="${t.avatar}" alt="Portrait of ${t.name}" width="80" height="80" loading="lazy" />
+              <div class="author-info">
+                <p class="author-name">${t.name}</p>
+                <p class="author-loc">${t.location}</p>
+              </div>
+            </div>
+          </div>
+        `;
+          track.appendChild(slide);
+
+          // Dot
+          const dot = document.createElement("button");
+          dot.className = `carousel-dot${i === 0 ? " active" : ""}`;
+          dot.setAttribute("role", "tab");
+          dot.setAttribute("aria-label", `Go to testimonial ${i + 1}`);
+          dot.setAttribute("aria-selected", String(i === 0));
+          dot.addEventListener("click", () => goTo(i));
+          dotsEl.appendChild(dot);
+        });
+
+        function goTo(idx) {
+          current = (idx + TESTIMONIALS.length) % TESTIMONIALS.length;
+          track.style.transform = `translateX(-${current * 100}%)`;
+          $$(".carousel-dot").forEach((d, i) => {
+            d.classList.toggle("active", i === current);
+            d.setAttribute("aria-selected", String(i === current));
+          });
+          resetTimer();
+        }
+
+        function resetTimer() {
+          clearInterval(timer);
+          timer = setInterval(() => goTo(current + 1), 5500);
+        }
+
+        $("#carousel-prev").addEventListener("click", () => goTo(current - 1));
+        $("#carousel-next").addEventListener("click", () => goTo(current + 1));
+
+        // Pause on hover
+        track.addEventListener("mouseenter", () => clearInterval(timer));
+        track.addEventListener("mouseleave", resetTimer);
+
+        resetTimer();
+      }
+
+      /* ── NAV LINK SCROLL-SPY & SMOOTH SCROLL ──────────────────── */
+      function initNavLinks() {
+        const NAV_H = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-h")) || 76;
+
+        // All clickable nav links (desktop + mobile drawer)
+        const allNavLinks = $$('a[href^="#"]', document);
+
+        // Smooth scroll with header offset for all internal anchor links
+        allNavLinks.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            const href = link.getAttribute("href");
+            if (!href || href === "#") return;
+            const target = document.querySelector(href);
+            if (!target) return;
+            e.preventDefault();
+            const top = target.getBoundingClientRect().top + window.scrollY - NAV_H;
+            window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+
+            // Close mobile drawer if open
+            const drawer = $("#nav-drawer");
+            const hamburger = $("#nav-hamburger");
+            if (drawer && drawer.classList.contains("open")) {
+              drawer.classList.remove("open");
+              hamburger.classList.remove("open");
+              hamburger.setAttribute("aria-expanded", "false");
+              hamburger.setAttribute("aria-label", "Open menu");
+            }
+          });
+        });
+
+        // Scroll-spy: highlight nav link matching current section
+        const sections = [
+          { id: "hero", link: "#hero" },
+          { id: "cakes", link: "#cakes" },
+          { id: "about", link: "#about" },
+          { id: "testimonials", link: "#about" }, // testimonials maps to no nav, keep about active
+          { id: "contact", link: "#contact" },
+        ];
+
+        const desktopLinks = $$(".nav-links a");
+
+        function updateActiveLink() {
+          const scrollY = window.scrollY + NAV_H + 32;
+          let current = "hero";
+          for (const s of sections) {
+            const el = document.getElementById(s.id);
+            if (el && el.offsetTop <= scrollY) current = s.id;
+          }
+          // Map section id to nav href
+          const activeHref = sections.find((s) => s.id === current)?.link || "#hero";
+          desktopLinks.forEach((a) => {
+            a.classList.toggle("active", a.getAttribute("href") === activeHref);
+          });
+        }
+
+        window.addEventListener("scroll", updateActiveLink, { passive: true });
+        updateActiveLink(); // run once on load
+      }
+
+      /* ── HERO CAROUSEL ─────────────────────────────────────────── */
+      function initHeroCarousel() {
+        const carousel = $("#hero-carousel");
+        const dotsWrap = $("#hero-dots");
+        if (!carousel || !dotsWrap) return;
+
+        const slides = $$(".hero-slide", carousel);
+        const INTERVAL = 5500;
+        let current = 0;
+        let timer;
+
+        // Build dots
+        slides.forEach((_, i) => {
+          const dot = document.createElement("button");
+          dot.className = "hero-dot" + (i === 0 ? " active" : "");
+          dot.setAttribute("role", "tab");
+          dot.setAttribute("aria-label", "Go to slide " + (i + 1));
+          dot.setAttribute("aria-selected", String(i === 0));
+          dot.addEventListener("click", () => {
+            goTo(i);
+            resetTimer();
+          });
+          dotsWrap.appendChild(dot);
+        });
+
+        const dots = $$(".hero-dot", dotsWrap);
+
+        function goTo(idx) {
+          // Remove active from current
+          slides[current].classList.remove("active");
+          // Reset animation by forcing reflow
+          const img = slides[current].querySelector("img");
+          if (img) {
+            img.style.animation = "none";
+            img.offsetHeight;
+            img.style.animation = "";
+          }
+
+          dots[current].classList.remove("active");
+          dots[current].setAttribute("aria-selected", "false");
+
+          current = (idx + slides.length) % slides.length;
+
+          slides[current].classList.add("active");
+          dots[current].classList.add("active");
+          dots[current].setAttribute("aria-selected", "true");
+        }
+
+        function resetTimer() {
+          clearInterval(timer);
+          timer = setInterval(() => goTo(current + 1), INTERVAL);
+        }
+
+        // Pause on hover/focus
+        carousel.addEventListener("mouseenter", () => clearInterval(timer));
+        carousel.addEventListener("mouseleave", resetTimer);
+
+        resetTimer();
+      }
+
+      /* Boot */
+      document.addEventListener("DOMContentLoaded", () => {
+        initStickyHeader();
+        initHamburger();
+        initGrids();
+        initTabs();
+        initCarousel();
+        initNavLinks();
+        initHeroCarousel();
+      });
+    </script>
+  </body>
+</html>
